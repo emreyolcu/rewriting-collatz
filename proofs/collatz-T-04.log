@@ -1,0 +1,134 @@
+Rewriting system:
+  ad ->= d
+  bd ->= gd
+  ae ->= ea
+  ag ->= fa
+  be ->= fb
+  bf ->= ga
+  bg ->= gb
+  ce |-> cb
+  cf |-> caa
+  cg |-> cab
+CNF: 151 variables, 684 clauses (0.002 s)
+SAT (Attempt 1, 0.001 s)
+
+Matrix: dimension 1, input width 3, result width 3
+[a]: [1] x  +  [ ]
+
+[b]: [1] x  +  [ ]
+
+[c]: [1] x  +  [ ]
+
+[d]: [ ] x  +  [ ]
+
+[e]: [1] x  +  [1]
+
+[f]: [1] x  +  [ ]
+
+[g]: [1] x  +  [ ]
+
+[ad] ≥ [d]:   [ ] x  +  [ ]   ≥   [ ] x  +  [ ]
+
+[bd] ≥ [gd]:  [ ] x  +  [ ]   ≥   [ ] x  +  [ ]
+
+[ae] ≥ [ea]:  [1] x  +  [1]   ≥   [1] x  +  [1]
+
+[ag] ≥ [fa]:  [1] x  +  [ ]   ≥   [1] x  +  [ ]
+
+[be] > [fb]:  [1] x  +  [1]   >   [1] x  +  [ ]
+
+[bf] ≥ [ga]:  [1] x  +  [ ]   ≥   [1] x  +  [ ]
+
+[bg] ≥ [gb]:  [1] x  +  [ ]   ≥   [1] x  +  [ ]
+
+[ce] > [cb]:  [1] x  +  [1]   >   [1] x  +  [ ]
+
+[cf] ≥ [caa]: [1] x  +  [ ]   ≥   [1] x  +  [ ]
+
+[cg] ≥ [cab]: [1] x  +  [ ]   ≥   [1] x  +  [ ]
+
+Relatively top-terminating rules:
+  ce -> cb
+
+Remaining strict rules:
+  cf |-> caa
+  cg |-> cab
+CNF: 138 variables, 615 clauses (0.002 s)
+SAT (Attempt 1, 0.001 s)
+
+Matrix: dimension 1, input width 3, result width 3
+[a]: [1] x  +  [ ]
+
+[b]: [1] x  +  [1]
+
+[c]: [1] x  +  [ ]
+
+[d]: [ ] x  +  [ ]
+
+[e]: [1] x  +  [1]
+
+[f]: [1] x  +  [1]
+
+[g]: [1] x  +  [1]
+
+[ad] ≥ [d]:   [ ] x  +  [ ]   ≥   [ ] x  +  [ ]
+
+[bd] ≥ [gd]:  [ ] x  +  [1]   ≥   [ ] x  +  [1]
+
+[ae] ≥ [ea]:  [1] x  +  [1]   ≥   [1] x  +  [1]
+
+[ag] ≥ [fa]:  [1] x  +  [1]   ≥   [1] x  +  [1]
+
+[be] ≥ [fb]:  [1] x  +  [2]   ≥   [1] x  +  [2]
+
+[bf] > [ga]:  [1] x  +  [2]   >   [1] x  +  [1]
+
+[bg] ≥ [gb]:  [1] x  +  [2]   ≥   [1] x  +  [2]
+
+[cf] > [caa]: [1] x  +  [1]   >   [1] x  +  [ ]
+
+[cg] ≥ [cab]: [1] x  +  [1]   ≥   [1] x  +  [1]
+
+Relatively top-terminating rules:
+  cf -> caa
+
+Remaining strict rules:
+  cg |-> cab
+CNF: 125 variables, 546 clauses (0.003 s)
+SAT (Attempt 1, 0.001 s)
+
+Matrix: dimension 1, input width 3, result width 3
+[a]: [ ] x  +  [ ]
+
+[b]: [ ] x  +  [1]
+
+[c]: [1] x  +  [ ]
+
+[d]: [ ] x  +  [ ]
+
+[e]: [ ] x  +  [ ]
+
+[f]: [ ] x  +  [ ]
+
+[g]: [ ] x  +  [1]
+
+[ad] ≥ [d]:   [ ] x  +  [ ]   ≥   [ ] x  +  [ ]
+
+[bd] ≥ [gd]:  [ ] x  +  [1]   ≥   [ ] x  +  [1]
+
+[ae] ≥ [ea]:  [ ] x  +  [ ]   ≥   [ ] x  +  [ ]
+
+[ag] ≥ [fa]:  [ ] x  +  [ ]   ≥   [ ] x  +  [ ]
+
+[be] > [fb]:  [ ] x  +  [1]   >   [ ] x  +  [ ]
+
+[bf] ≥ [ga]:  [ ] x  +  [1]   ≥   [ ] x  +  [1]
+
+[bg] ≥ [gb]:  [ ] x  +  [1]   ≥   [ ] x  +  [1]
+
+[cg] > [cab]: [ ] x  +  [1]   >   [ ] x  +  [ ]
+
+Relatively top-terminating rules:
+  cg -> cab
+
+QED

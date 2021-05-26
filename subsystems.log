@@ -1,0 +1,15 @@
+D <= 7
+RW <= 8
+timeout: 30
+repeat: 25
+01		matrix 3 4   1.42s		arctic 3 5  15.95s
+02		matrix 1 2   0.27s		arctic 1 3   0.28s
+03		matrix 4 2   0.92s		arctic 3 4   2.46s
+04		matrix 1 3   0.50s		arctic 1 4   0.51s
+05		matrix 1 2   0.38s		arctic 1 3   0.39s
+06		matrix 4 3   1.20s		arctic 3 4   0.87s
+07		matrix 5 2   0.89s		arctic 4 3   0.84s
+08		matrix 4 4  10.00s		arctic 2 5   0.62s
+09		matrix 2 2   0.40s		arctic 2 3   0.42s
+10		matrix 3 3   0.53s		arctic 3 4   0.57s
+11		matrix 4 4   7.51s		arctic 4 3   4.04s

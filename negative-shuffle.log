@@ -1,0 +1,12 @@
+timeout: 120
+repeat: 25
+							phase				negative
+							single		multiple	single		multiple
+relative/farkas-D.srs	arctic  5  8		  240.00s	  240.00s	   44.45s	    9.22s
+relative/collatz-T-01.srs	arctic  3  5		    1.52s	    0.13s	   29.95s	   13.12s
+relative/collatz-T-03.srs	arctic  3  4		    3.75s	    0.83s	    3.27s	    1.71s
+relative/collatz-T-08.srs	matrix  4  4		   75.78s	   19.12s	   29.62s	    8.13s
+relative/collatz-T-11.srs	matrix  4  4		   75.05s	    5.22s	   24.31s	    6.43s
+relative/collatz-T-11.srs	arctic  4  3		    3.33s	    0.52s	   11.55s	    3.84s
+relative/collatz-C-6mod8-2.srs	matrix  3 11		  240.00s	  240.00s	  240.00s	   79.05s
+relative/collatz-T-3mod8-2.srs	arctic  3 12		    1.94s	    0.33s	    3.28s	    0.38s

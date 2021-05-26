@@ -1,0 +1,70 @@
+Rewriting system (reversed):
+  da |-> de
+  ea ->= ae
+  fa ->= be
+  ga ->= af
+  eb ->= bf
+  fb ->= ag
+  gb ->= bg
+  ec ->= bc
+  fc ->= aac
+  gc ->= bac
+CNF: 1446 variables, 8537 clauses (0.018 s)
+SAT (Attempt 1, 0.009 s)
+
+Matrix: dimension 2, input width 4, result width 4
+[a]: /1  \       /1\
+     \  1/ x  +  \1/
+
+[b]: /1  \       /1\
+     \   / x  +  \ /
+
+[c]: /   \       /1\
+     \   / x  +  \ /
+
+[d]: /  1\       / \
+     \   / x  +  \ /
+
+[e]: /1  \       /2\
+     \  1/ x  +  \ /
+
+[f]: /1  \       /2\
+     \2  / x  +  \ /
+
+[g]: /1  \       /2\
+     \2  / x  +  \ /
+
+[da] > [de]:  /  1\       /1\       /  1\       / \
+              \   / x  +  \ /   >   \   / x  +  \ /
+
+[ea] ≥ [ae]:  /1  \       /3\       /1  \       /3\
+              \  1/ x  +  \1/   ≥   \  1/ x  +  \1/
+
+[fa] ≥ [be]:  /1  \       /3\       /1  \       /3\
+              \2  / x  +  \2/   ≥   \   / x  +  \ /
+
+[ga] ≥ [af]:  /1  \       /3\       /1  \       /3\
+              \2  / x  +  \2/   ≥   \2  / x  +  \1/
+
+[eb] ≥ [bf]:  /1  \       /3\       /1  \       /3\
+              \   / x  +  \ /   ≥   \   / x  +  \ /
+
+[fb] ≥ [ag]:  /1  \       /3\       /1  \       /3\
+              \2  / x  +  \2/   ≥   \2  / x  +  \1/
+
+[gb] ≥ [bg]:  /1  \       /3\       /1  \       /3\
+              \2  / x  +  \2/   ≥   \   / x  +  \ /
+
+[ec] > [bc]:  /   \       /3\       /   \       /2\
+              \   / x  +  \ /   >   \   / x  +  \ /
+
+[fc] ≥ [aac]: /   \       /3\       /   \       /3\
+              \   / x  +  \2/   ≥   \   / x  +  \2/
+
+[gc] ≥ [bac]: /   \       /3\       /   \       /3\
+              \   / x  +  \2/   ≥   \   / x  +  \ /
+
+Relatively top-terminating rules:
+  da -> de
+
+QED
