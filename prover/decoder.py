@@ -14,6 +14,7 @@ class Decoder(ABC):
         self.width = width
         self.removeany = removeany
         self.bracket = self.asciibrk if printascii else self.unicodebrk
+        self.relation = self.asciirel if printascii else self.unicoderel
 
     def parseinterp(self, model):
         interp = {}
@@ -25,7 +26,7 @@ class Decoder(ABC):
                     if v is not None:
                         v[i] = self.decode_coeff(('v', s, i), model)
                     interp[s] = (M, v)
-            if self.full and M[0, 0] <= 0:
+            if self.full and not self.positive(M[0, 0]):
                 sl = Decoder.slen(s)
                 sys.exit('ERROR: Interpretation is not monotone:\n' +
                          Decoder.sstr(s) + self.symbol((M, v), sl - 1, pad=sl))
@@ -68,10 +69,10 @@ class Decoder(ABC):
             print(self.interptex(interp[s]), end='\n\n', file=file)
 
     def printrules(self, rules, interp, file=sys.stdout):
-        rl = {r: Decoder.rlen(r, self.rel(interp[r][2])) for r in rules}
+        rl = {r: Decoder.rlen(r, self.relation(interp[r][2])) for r in rules}
         pad = max(rl.values())
         for r in rules:
-            item = Decoder.rstr(r, self.rel(interp[r][2]))
+            item = Decoder.rstr(r, self.relation(interp[r][2]))
             print(item, end='', file=file)
             print(self.rule(interp[r], rl[r] - 1, pad=pad), end='\n\n', file=file)
 
@@ -85,10 +86,14 @@ class Decoder(ABC):
             print(self.interptex(interp[r][1]), end='\n', file=file)
             print(itemr, end='\n\n', file=file)
 
-    def printtest(self, st, interp, spaced, file=sys.stdout):
-        item = f'[{join(st, spaced)}]:'
+    def printtest(self, st, interp, spaced, comment, scalar, file=sys.stdout):
+        item = f'[{join(st, spaced)}]:' + (f' ({comment})' if comment else '')
         print(item, end='', file=file)
-        print(self.symbol(self.interpret(st, interp), 0), end='\n\n', file=file)
+        I = self.interpret(st, interp)
+        if not scalar:
+            print(self.symbol(I, 0), end='\n\n', file=file)
+        else:
+            print(" '" + self.val(I[1][0]) + "'", file=file)
 
     def symbol(self, I, sl, pad=0):
         M, v = I
@@ -141,7 +146,7 @@ class Decoder(ABC):
             if Lv is not None:
                 s.append(self.sep(' + ', i))
                 s.append(self.wrap(self.val(Lv[i]), i))
-            s.append(self.sep(f'  {self.rel(strict)}  ', i))
+            s.append(self.sep(f'  {self.relation(strict)}  ', i))
             s.append(self.wrap(' '.join(self.val(RM[i, j]) for j in range(self.dimension)), i))
             s.append(self.put(' x', i))
             if Rv is not None:
@@ -199,9 +204,16 @@ class Decoder(ABC):
         b = self.bracket(i)
         return b[0] + s + b[1]
 
-    def rel(self, strict):
+    def unicoderel(self, strict):
         if strict is None:
             rel = '≱'
         else:
             rel = '>' if strict else '≥'
+        return rel
+
+    def asciirel(self, strict):
+        if strict is None:
+            rel = '>/='
+        else:
+            rel = ' > ' if strict else ' >='
         return rel

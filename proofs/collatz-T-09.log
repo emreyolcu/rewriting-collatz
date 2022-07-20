@@ -9,10 +9,74 @@ Rewriting system:
   bg ->= gb
   cf |-> caa
   cg |-> cab
-CNF: 444 variables, 1745 clauses (0.005 s)
+CNF: 444 variables, 1745 clauses (0.004 s)
+Timeout: None
+Workers: 4
+SAT (Attempt 1, 0.003 s)
+
+Natural: dimension 2, input width 2, result width 2
+[a]: /  1\       / \
+     \   / x  +  \ /
+
+[b]: /   \       /1\
+     \   / x  +  \1/
+
+[c]: /1  \       / \
+     \   / x  +  \ /
+
+[d]: /   \       / \
+     \   / x  +  \ /
+
+[e]: /   \       / \
+     \   / x  +  \ /
+
+[f]: /   \       /1\
+     \   / x  +  \ /
+
+[g]: /   \       /1\
+     \   / x  +  \1/
+
+[ad]  >= [d]:   /   \       / \         /   \       / \
+                \   / x  +  \ /    >=   \   / x  +  \ /
+
+[bd]  >= [gd]:  /   \       /1\         /   \       /1\
+                \   / x  +  \1/    >=   \   / x  +  \1/
+
+[ae]  >= [ea]:  /   \       / \         /   \       / \
+                \   / x  +  \ /    >=   \   / x  +  \ /
+
+[af]  >= [eb]:  /   \       / \         /   \       / \
+                \   / x  +  \ /    >=   \   / x  +  \ /
+
+[ag]  >= [fa]:  /   \       /1\         /   \       /1\
+                \   / x  +  \ /    >=   \   / x  +  \ /
+
+[be]  >= [fb]:  /   \       /1\         /   \       /1\
+                \   / x  +  \1/    >=   \   / x  +  \ /
+
+[bf]  >= [ga]:  /   \       /1\         /   \       /1\
+                \   / x  +  \1/    >=   \   / x  +  \1/
+
+[bg]  >= [gb]:  /   \       /1\         /   \       /1\
+                \   / x  +  \1/    >=   \   / x  +  \1/
+
+[cf]  >  [caa]: /   \       /1\         /   \       / \
+                \   / x  +  \ /    >    \   / x  +  \ /
+
+[cg]  >= [cab]: /   \       /1\         /   \       /1\
+                \   / x  +  \ /    >=   \   / x  +  \ /
+
+Relatively top-terminating rules:
+  cf -> caa
+
+Remaining strict rules:
+  cg |-> cab
+CNF: 403 variables, 1569 clauses (0.005 s)
+Timeout: None
+Workers: 4
 SAT (Attempt 1, 0.002 s)
 
-Matrix: dimension 2, input width 2, result width 2
+Natural: dimension 2, input width 2, result width 2
 [a]: /   \       / \
      \   / x  +  \ /
 
@@ -34,94 +98,34 @@ Matrix: dimension 2, input width 2, result width 2
 [g]: /   \       / \
      \   / x  +  \1/
 
-[ad] ≥ [d]:   /   \       / \       /   \       / \
-              \   / x  +  \ /   ≥   \   / x  +  \ /
+[ad]  >= [d]:   /   \       / \         /   \       / \
+                \   / x  +  \ /    >=   \   / x  +  \ /
 
-[bd] ≥ [gd]:  /   \       / \       /   \       / \
-              \   / x  +  \1/   ≥   \   / x  +  \1/
+[bd]  >= [gd]:  /   \       / \         /   \       / \
+                \   / x  +  \1/    >=   \   / x  +  \1/
 
-[ae] ≥ [ea]:  /   \       / \       /   \       / \
-              \   / x  +  \ /   ≥   \   / x  +  \ /
+[ae]  >= [ea]:  /   \       / \         /   \       / \
+                \   / x  +  \ /    >=   \   / x  +  \ /
 
-[af] ≥ [eb]:  /   \       / \       /   \       / \
-              \   / x  +  \ /   ≥   \   / x  +  \ /
+[af]  >= [eb]:  /   \       / \         /   \       / \
+                \   / x  +  \ /    >=   \   / x  +  \ /
 
-[ag] ≥ [fa]:  /   \       / \       /   \       / \
-              \   / x  +  \ /   ≥   \   / x  +  \ /
+[ag]  >= [fa]:  /   \       / \         /   \       / \
+                \   / x  +  \ /    >=   \   / x  +  \ /
 
-[be] ≥ [fb]:  /   \       / \       /   \       / \
-              \   / x  +  \1/   ≥   \   / x  +  \ /
+[be]  >= [fb]:  /   \       / \         /   \       / \
+                \   / x  +  \1/    >=   \   / x  +  \ /
 
-[bf] ≥ [ga]:  /   \       / \       /   \       / \
-              \   / x  +  \1/   ≥   \   / x  +  \1/
+[bf]  >= [ga]:  /   \       / \         /   \       / \
+                \   / x  +  \1/    >=   \   / x  +  \1/
 
-[bg] ≥ [gb]:  /   \       / \       /   \       / \
-              \   / x  +  \1/   ≥   \   / x  +  \1/
+[bg]  >= [gb]:  /   \       / \         /   \       / \
+                \   / x  +  \1/    >=   \   / x  +  \1/
 
-[cf] ≥ [caa]: /   \       / \       /   \       / \
-              \   / x  +  \ /   ≥   \   / x  +  \ /
-
-[cg] > [cab]: /   \       /1\       /   \       / \
-              \   / x  +  \ /   >   \   / x  +  \ /
+[cg]  >  [cab]: /   \       /1\         /   \       / \
+                \   / x  +  \ /    >    \   / x  +  \ /
 
 Relatively top-terminating rules:
   cg -> cab
-
-Remaining strict rules:
-  cf |-> caa
-CNF: 403 variables, 1569 clauses (0.004 s)
-SAT (Attempt 1, 0.002 s)
-
-Matrix: dimension 2, input width 2, result width 2
-[a]: /   \       / \
-     \1  / x  +  \ /
-
-[b]: /   \       /1\
-     \   / x  +  \1/
-
-[c]: /  1\       / \
-     \   / x  +  \ /
-
-[d]: /   \       / \
-     \   / x  +  \ /
-
-[e]: /   \       / \
-     \   / x  +  \ /
-
-[f]: /   \       / \
-     \   / x  +  \1/
-
-[g]: /   \       /1\
-     \   / x  +  \ /
-
-[ad] ≥ [d]:   /   \       / \       /   \       / \
-              \   / x  +  \ /   ≥   \   / x  +  \ /
-
-[bd] ≥ [gd]:  /   \       /1\       /   \       /1\
-              \   / x  +  \1/   ≥   \   / x  +  \ /
-
-[ae] ≥ [ea]:  /   \       / \       /   \       / \
-              \   / x  +  \ /   ≥   \   / x  +  \ /
-
-[af] ≥ [eb]:  /   \       / \       /   \       / \
-              \   / x  +  \ /   ≥   \   / x  +  \ /
-
-[ag] ≥ [fa]:  /   \       / \       /   \       / \
-              \   / x  +  \1/   ≥   \   / x  +  \1/
-
-[be] > [fb]:  /   \       /1\       /   \       / \
-              \   / x  +  \1/   >   \   / x  +  \1/
-
-[bf] ≥ [ga]:  /   \       /1\       /   \       /1\
-              \   / x  +  \1/   ≥   \   / x  +  \ /
-
-[bg] ≥ [gb]:  /   \       /1\       /   \       /1\
-              \   / x  +  \1/   ≥   \   / x  +  \ /
-
-[cf] > [caa]: /   \       /1\       /   \       / \
-              \   / x  +  \ /   >   \   / x  +  \ /
-
-Relatively top-terminating rules:
-  cf -> caa
 
 QED

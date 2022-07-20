@@ -6,7 +6,7 @@ from encoder import Encoder
 from decoder import Decoder
 
 
-class MatrixEncoder(Encoder):
+class NaturalEncoder(Encoder):
     def less(self, x, y):
         self.add((-self.index((*x, self.width - 1)),))
         self.add(( self.index((*y, 0)),))
@@ -58,6 +58,9 @@ class MatrixEncoder(Encoder):
                         self.add((self.index((*x, i)), self.index((*y, j)), -self.index((*r, p))))
         return r
 
+    def monotone(self, s):
+        self.add((self.index(('M', s, 0, 0, 0)),))
+
     def concatenate(self, s, t):
         self.matrixmultiply(s, t)
         for i in range(self.dimension):
@@ -87,8 +90,22 @@ class MatrixEncoder(Encoder):
                 self.add((-self.index(('M', s, i, j, w)),))
             self.add((-self.index(('v', s, i, w)),))
 
+    def marktop(self, s):
+        for i in range(1, self.dimension):
+            for j in range(self.dimension):
+                self.add((-self.index(('M', s, i, j, 0)),))
+            self.add((-self.index(('v', s, i, 0)),))
 
-class MatrixDecoder(Decoder):
+    def markbot(self, s):
+        for i in range(self.dimension):
+            for j in range(self.dimension):
+                self.add((-self.index(('M', s, i, j, 0)),))
+
+
+class NaturalDecoder(Decoder):
+    def positive(self, x):
+        return x > 0
+
     def initinterp(self):
         M = np.empty((self.dimension, self.dimension), dtype=np.int64)
         v = np.empty(self.dimension, dtype=np.int64)

@@ -36,9 +36,6 @@ class Encoder(ABC):
         for i in range(self.width):
             self.add((-self.index((*x, i)), self.index((*y, i))))
 
-    def monotone(self, s):
-        self.add((self.index(('M', s, 0, 0, 0)),))
-
     def ksum(self, xs, z=()):
         r = xs[0]
         for i in range(1, len(xs)):

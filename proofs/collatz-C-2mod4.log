@@ -10,10 +10,12 @@ Rewriting system (reversed):
   ec ->= bc
   fc ->= aac
   gc ->= bac
-CNF: 1566 variables, 9308 clauses (0.021 s)
+CNF: 1566 variables, 9308 clauses (0.020 s)
+Timeout: None
+Workers: 4
 SAT (Attempt 1, 0.009 s)
 
-Matrix: dimension 2, input width 4, result width 4
+Natural: dimension 2, input width 4, result width 4
 [a]: /   \       / \
      \1 1/ x  +  \1/
 
@@ -35,38 +37,38 @@ Matrix: dimension 2, input width 4, result width 4
 [g]: /3  \       / \
      \  3/ x  +  \ /
 
-[daa] > [da]: /1 1\       /2\       /1 1\       /1\
-              \   / x  +  \ /   >   \   / x  +  \ /
+[daa]  >  [da]: /1 1\       /2\         /1 1\       /1\
+                \   / x  +  \ /    >    \   / x  +  \ /
 
-[db] > [dag]: /3 3\       /3\       /3 3\       /1\
-              \   / x  +  \ /   >   \   / x  +  \ /
+[db]  >  [dag]: /3 3\       /3\         /3 3\       /1\
+                \   / x  +  \ /    >    \   / x  +  \ /
 
-[ea] ≥ [ae]:  /   \       / \       /   \       / \
-              \3 3/ x  +  \3/   ≥   \3 3/ x  +  \1/
+[ea]  >= [ae]:  /   \       / \         /   \       / \
+                \3 3/ x  +  \3/    >=   \3 3/ x  +  \1/
 
-[fa] > [be]:  /3 3\       /3\       /3 3\       /1\
-              \   / x  +  \ /   >   \   / x  +  \ /
+[fa]  >  [be]:  /3 3\       /3\         /3 3\       /1\
+                \   / x  +  \ /    >    \   / x  +  \ /
 
-[ga] ≥ [af]:  /   \       / \       /   \       / \
-              \3 3/ x  +  \3/   ≥   \3 3/ x  +  \1/
+[ga]  >= [af]:  /   \       / \         /   \       / \
+                \3 3/ x  +  \3/    >=   \3 3/ x  +  \1/
 
-[eb] > [bf]:  /3 3\       /3\       /3 3\       /1\
-              \   / x  +  \ /   >   \   / x  +  \ /
+[eb]  >  [bf]:  /3 3\       /3\         /3 3\       /1\
+                \   / x  +  \ /    >    \   / x  +  \ /
 
-[fb] ≥ [ag]:  /   \       / \       /   \       / \
-              \3 3/ x  +  \3/   ≥   \3 3/ x  +  \1/
+[fb]  >= [ag]:  /   \       / \         /   \       / \
+                \3 3/ x  +  \3/    >=   \3 3/ x  +  \1/
 
-[gb] > [bg]:  /3 3\       /3\       /3 3\       /1\
-              \   / x  +  \ /   >   \   / x  +  \ /
+[gb]  >  [bg]:  /3 3\       /3\         /3 3\       /1\
+                \   / x  +  \ /    >    \   / x  +  \ /
 
-[ec] > [bc]:  /   \       /3\       /   \       /2\
-              \   / x  +  \ /   >   \   / x  +  \ /
+[ec]  >  [bc]:  /   \       /3\         /   \       /2\
+                \   / x  +  \ /    >    \   / x  +  \ /
 
-[fc] ≥ [aac]: /   \       / \       /   \       / \
-              \   / x  +  \3/   ≥   \   / x  +  \3/
+[fc]  >= [aac]: /   \       / \         /   \       / \
+                \   / x  +  \3/    >=   \   / x  +  \3/
 
-[gc] ≥ [bac]: /   \       /3\       /   \       /3\
-              \   / x  +  \ /   ≥   \   / x  +  \ /
+[gc]  >= [bac]: /   \       /3\         /   \       /3\
+                \   / x  +  \ /    >=   \   / x  +  \ /
 
 Relatively top-terminating rules:
   daa -> da

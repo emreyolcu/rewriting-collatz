@@ -34,6 +34,7 @@ class Rule:
 
 class System:
     def __init__(self, symbols, rules, full, rev):
+        self.alphabet = symbols.copy()
         self.symbols = symbols
         self.rules = rules
         self.full = full
@@ -57,17 +58,17 @@ def dp(system):
     if ('#',) in system.symbols:
         sys.exit('ERROR: # is a reserved symbol when using dependency pairs')
     pairs = []
-    defined = set()
+    defined = set((r.left[0],) for r in system.rules)
     for r in system.rules:
         left = (r.left[0] + '#',) + r.left[1:]
-        defined.add((left[0],))
         for i in range(len(r.right)):
-            right = (r.right[i] + '#',) + r.right[(i + 1):]
-            p = Rule(left, right, True, True, True)
-            pairs.append(p)
-            defined.add((right[0],))
+            if (r.right[i],) in defined:
+                right = (r.right[i] + '#',) + r.right[(i + 1):]
+                p = Rule(left, right, True, True, True)
+                pairs.append(p)
+    markers = set((s[0] + '#',) for s in defined)
     weakened = [Rule(r.left, r.right, False, False, True) for r in system.rules]
-    return System(defined | system.symbols, pairs + weakened, False, system.rev)
+    return System(markers | system.symbols, pairs + weakened, False, system.rev)
 
 
 def pad(left, right, pre, post, symbols, top):

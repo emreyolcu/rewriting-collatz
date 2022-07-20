@@ -9,8 +9,9 @@ import signal
 
 import rules
 from rules import parse, join
-from matrix import MatrixEncoder, MatrixDecoder
+from natural import NaturalEncoder, NaturalDecoder
 from arctic import ArcticEncoder, ArcticDecoder
+from tropical import TropicalEncoder, TropicalDecoder
 from sat import SAT, Result
 
 
@@ -18,21 +19,25 @@ signal.signal(signal.SIGINT, lambda x, y: sys.exit(0))
 
 
 def encode(system, args):
-    if args.interpretation == 'matrix':
+    if args.interpretation == 'natural':
         if args.negwidth > 0:
-            sys.exit('ERROR: Matrix interpretations can only use natural numbers')
-        E = MatrixEncoder(system.full, args.dimension, args.resultwidth, args.removeany)
+            sys.exit('ERROR: Natural interpretations can only use nonnegative numbers')
+        E = NaturalEncoder(system.full, args.dimension, args.resultwidth, args.removeany)
     elif args.interpretation == 'arctic':
         if system.full and args.negwidth > 0:
-            sys.exit('ERROR: Arctic interpretations can only use natural numbers in full termination')
+            sys.exit('ERROR: Arctic interpretations can only use nonnegative numbers in full termination')
         E = ArcticEncoder(system.full, args.dimension, args.resultwidth, args.negwidth, args.removeany)
+    elif args.interpretation == 'tropical':
+        if args.negwidth > 0:
+            sys.exit('ERROR: Tropical interpretations can only use nonnegative numbers')
+        E = TropicalEncoder(system.full, args.dimension, args.resultwidth, args.removeany)
 
     # Order
     for s in system.symbols:
         for i in range(args.dimension):
             for j in range(args.dimension):
                 E.order(('M', s, i, j))
-            if isinstance(E, MatrixEncoder) or not E.full:
+            if isinstance(E, NaturalEncoder) or not E.full:
                 E.order(('v', s, i))
 
     # Monotonicity
@@ -40,7 +45,7 @@ def encode(system, args):
         for s in system.symbols:
             E.monotone(s)
     else:
-        if isinstance(E, ArcticEncoder):
+        if isinstance(E, ArcticEncoder) or isinstance(E, TropicalEncoder):
             for s in system.symbols:
                 E.weaklymonotone(s)
 
@@ -72,35 +77,26 @@ def encode(system, args):
         E.add(aux)
 
     # Marked symbols
-    if args.markedsymbols:
-        if not isinstance(E, MatrixEncoder):
-            sys.exit('ERROR: Marked symbols can only be used with matrix interpretations')
-        else:
-            args.markedsymbols = [(s,) for s in args.markedsymbols]
-            for s in args.markedsymbols:
-                for i in range(1, args.dimension):
-                    for j in range(args.dimension):
-                        E.add((-E.index(('M', s, i, j, 0)),))
-                    E.add((-E.index(('v', s, i, 0)),))
+    if args.marktop:
+        args.marktop = [(s,) for s in args.marktop]
+        for s in args.marktop:
+            E.marktop(s)
 
-    # # [c](x) = v and [d](x) = Mx
-    # for i in range(args.dimension):
-    #     for j in range(args.dimension):
-    #         E.add((-E.index(('M', ('c',), i, j, 0)),))
-    #     E.add((-E.index(('v', ('d',), i, 0)),))
-    #     # # [ternary](x) = Mx
-    #     # E.add((-E.index(('v', ('e',), i, 0)),))
-    #     # E.add((-E.index(('v', ('f',), i, 0)),))
-    #     # E.add((-E.index(('v', ('g',), i, 0)),))
+    if args.markbot:
+        args.markbot = [(s,) for s in args.markbot]
+        for s in args.markbot:
+            E.markbot(s)
 
     return E
 
 
 def decode(system, E, model, args):
-    if args.interpretation == 'matrix':
-        D = MatrixDecoder(E.full, system.symbols, E.variables, args.dimension, args.resultwidth, args.removeany, args.printascii)
+    if args.interpretation == 'natural':
+        D = NaturalDecoder(E.full, system.symbols, E.variables, args.dimension, args.resultwidth, args.removeany, args.printascii)
     elif args.interpretation == 'arctic':
         D = ArcticDecoder(E.full, system.symbols, E.variables, args.dimension, args.resultwidth, args.negwidth, args.removeany, args.printascii)
+    elif args.interpretation == 'tropical':
+        D = TropicalDecoder(E.full, system.symbols, E.variables, args.dimension, args.resultwidth, args.removeany, args.printascii)
 
     iw = args.resultwidth if args.inputwidth is None else min(args.resultwidth, args.inputwidth)
     print(f'\n{args.interpretation.capitalize()}: dimension {args.dimension}, input width {iw + 1}, result width {args.resultwidth + 1}' + (f', negative width {args.negwidth}' if args.negwidth > 0 else ''))
@@ -137,14 +133,18 @@ def decode(system, E, model, args):
         code = 19
 
     if args.testfile:
-        with open(args.testfile) as f:
-            print('\nTest:', file=sys.stderr)
-            for line in f.read().splitlines():
-                st = parse(line.strip(), args.spaced)
-                diff = list(set(st) - set(s[0] for s in system.symbols))
-                if diff:
-                    sys.exit(f'ERROR: Test string contains unknown symbols: {diff}')
-                D.printtest(st, interp, args.spaced, file=sys.stderr)
+        try:
+            with open(args.testfile) as f:
+                print('\nTest:', file=sys.stderr)
+                for line in f.read().splitlines():
+                    content, _, comment = line.strip().partition('//')
+                    st = parse(content.strip(), args.spaced)
+                    diff = sorted(set(st) - set(s[0] for s in system.alphabet))
+                    if diff:
+                        sys.exit(f'ERROR: Test string contains unknown symbols: {diff}')
+                    D.printtest(st, interp, args.spaced, comment.strip(), bool(args.marktop) and bool(args.markbot), file=sys.stderr)
+        except OSError:
+            pass
 
     return code
 
@@ -164,11 +164,12 @@ def parseargs():
     parser.add_argument('--tilerules',       '-tile', action='store_true')
     parser.add_argument('--removeany',       '-any',  action='store_true')
     parser.add_argument('--spaced',          '-spc',  action='store_true')
-    parser.add_argument('--markedsymbols',   '-mark', nargs='+')
+    parser.add_argument('--marktop',         '-mtop', nargs='+')
+    parser.add_argument('--markbot',         '-mbot', nargs='+')
     parser.add_argument('--testfile',        '-test', type=str)
     parser.add_argument('--outfile',         '-out',  type=str)
 
-    parser.add_argument('--interpretation',  '-i',  type=str, default='matrix', choices=['matrix', 'arctic'])
+    parser.add_argument('--interpretation',  '-i',  type=str, default='natural', choices=['natural', 'arctic', 'tropical'])
     parser.add_argument('--dimension',       '-d',  type=int, default=3)
     parser.add_argument('--inputwidth',      '-iw', type=int)
     parser.add_argument('--resultwidth',     '-rw', type=int, default=4)
@@ -176,11 +177,12 @@ def parseargs():
     parser.add_argument('--printcnf',        '-p',  action='store_true')
 
     parser.add_argument('--cnffile',         '-cnf',   type=str)
-    parser.add_argument('--solver',          '-sol',   type=str, default='cadical', choices=['cadical'])
-    parser.add_argument('--phasesaving',     '-phase', action='store_true')
+    parser.add_argument('--solver',          '-sol',   type=str, default='cadical', choices=['cadical', 'kissat', 'minisat'])
+    parser.add_argument('--phase',           '-phs',   type=str, default='negative', choices=['negative', 'positive', 'save'])
     parser.add_argument('--timeout',         '-tout',  type=int, default=0)
     parser.add_argument('--workers' ,        '-work',  type=int, default=4)
     parser.add_argument('--tries',           '-try',   type=int)
+    parser.add_argument('--lubysched',       '-luby',   action='store_true')
     parser.add_argument('--run-once',        '-once',   action='store_true')
     parser.add_argument('--no-shuffle',      '-noshuf', action='store_true')
     parser.add_argument('--no-print',        '-np',     action='store_true')
@@ -260,7 +262,9 @@ def main():
         f.close()
 
         # Try to solve CNF
-        S = SAT(cnffile, len(E.variables), len(E.clauses), args.solver, args.phasesaving, args.timeout, args.tries)
+        print('Timeout: ' + (f'{args.timeout} s' if args.timeout > 0 else 'None'), file=sys.stderr)
+        print(f'Workers: {args.workers}', file=sys.stderr)
+        S = SAT(cnffile, len(E.variables), len(E.clauses), args.solver, args.phase, args.timeout, args.tries, args.lubysched)
 
         with Pool(processes=args.workers) as pool:
             shufs = ((args.workers == 1 or i != 0) and not args.no_shuffle for i in range(args.workers))

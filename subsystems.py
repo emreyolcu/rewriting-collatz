@@ -40,7 +40,7 @@ def main():
     instances = (int(x) for x in sys.argv[1:]) if len(sys.argv) > 1 else range(1, 12)
     for instance in (f'{x:0=2d}' for x in instances):
         print(instance, end='')
-        for interpretation in ('matrix', 'arctic'):
+        for interpretation in ('natural', 'arctic'):
             for dimension, resultwidth in itertools.product(range(1, D + 1), range(2, RW + 1)):
                 result = search(timeout, f'relative/collatz-T-{instance}.srs', interpretation, dimension, resultwidth)
                 if result:

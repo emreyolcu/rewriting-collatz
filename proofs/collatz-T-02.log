@@ -10,9 +10,11 @@ Rewriting system:
   cf |-> caa
   cg |-> cab
 CNF: 77 variables, 267 clauses (0.001 s)
+Timeout: None
+Workers: 4
 SAT (Attempt 1, 0.001 s)
 
-Matrix: dimension 1, input width 2, result width 2
+Natural: dimension 1, input width 2, result width 2
 [a]: [1] x  +  [ ]
 
 [b]: [1] x  +  [ ]
@@ -27,25 +29,25 @@ Matrix: dimension 1, input width 2, result width 2
 
 [g]: [1] x  +  [1]
 
-[ad] ≥ [d]:   [1] x  +  [1]   ≥   [1] x  +  [1]
+[ad]  >= [d]:   [1] x  +  [1]    >=   [1] x  +  [1]
 
-[ae] ≥ [ea]:  [1] x  +  [1]   ≥   [1] x  +  [1]
+[ae]  >= [ea]:  [1] x  +  [1]    >=   [1] x  +  [1]
 
-[af] ≥ [eb]:  [1] x  +  [1]   ≥   [1] x  +  [1]
+[af]  >= [eb]:  [1] x  +  [1]    >=   [1] x  +  [1]
 
-[ag] ≥ [fa]:  [1] x  +  [1]   ≥   [1] x  +  [1]
+[ag]  >= [fa]:  [1] x  +  [1]    >=   [1] x  +  [1]
 
-[be] ≥ [fb]:  [1] x  +  [1]   ≥   [1] x  +  [1]
+[be]  >= [fb]:  [1] x  +  [1]    >=   [1] x  +  [1]
 
-[bf] ≥ [ga]:  [1] x  +  [1]   ≥   [1] x  +  [1]
+[bf]  >= [ga]:  [1] x  +  [1]    >=   [1] x  +  [1]
 
-[bg] ≥ [gb]:  [1] x  +  [1]   ≥   [1] x  +  [1]
+[bg]  >= [gb]:  [1] x  +  [1]    >=   [1] x  +  [1]
 
-[ce] > [cb]:  [1] x  +  [1]   >   [1] x  +  [ ]
+[ce]  >  [cb]:  [1] x  +  [1]    >    [1] x  +  [ ]
 
-[cf] > [caa]: [1] x  +  [1]   >   [1] x  +  [ ]
+[cf]  >  [caa]: [1] x  +  [1]    >    [1] x  +  [ ]
 
-[cg] > [cab]: [1] x  +  [1]   >   [1] x  +  [ ]
+[cg]  >  [cab]: [1] x  +  [1]    >    [1] x  +  [ ]
 
 Relatively top-terminating rules:
   ce -> cb
