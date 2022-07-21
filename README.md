@@ -14,7 +14,7 @@ This repository accompanies the paper [*An Automated Approach to the Collatz Con
 
 `relative/` contains the relative termination problems that several of the problems in the paper reduce to. These are used in producing the subparts of the termination proofs in the paper.
 
-The included rewriting systems are in a nonstandard format. You may use the script `tpdb-convert.py` to convert them into the [TPDB format](https://www.lri.fr/~marche/tpdb/format.html) accepted by most termination tools. Example usage:
+The included rewriting systems are in a nonstandard format. In particular, they use only single-letter symbols and do not contain spaces between symbols. (The command-line argument `--spaced` enables prover support for multi-letter symbols with spaces between them.) You may use the script `tpdb-convert.py` to convert them into the [TPDB format](https://www.lri.fr/~marche/tpdb/format.html) accepted by most termination tools. Example usage:
 ```
 > cat rules/collatz-T.srs | ./tpdb-convert.py
 (RULES
