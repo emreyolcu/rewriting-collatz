@@ -1,0 +1,13 @@
+solver: minisat
+timeout: 120
+repeat: 25
+							phase				negative
+							single		multiple	single		multiple
+relative/farkas.srs	arctic  5  8		  240.00s	  240.00s	   85.60s	    5.47s
+relative/collatz-T-01.srs	arctic  3  5		    0.62s	    0.09s	   67.69s	   15.74s
+relative/collatz-T-03.srs	arctic  3  4		    3.18s	    0.91s	    2.19s	    0.91s
+relative/collatz-T-08.srs	natural  4  4		  240.00s	   63.71s	  240.00s	   87.85s
+relative/collatz-T-11.srs	natural  4  4		  240.00s	  240.00s	   69.73s	    5.25s
+relative/collatz-T-11.srs	arctic  4  3		    1.39s	    0.18s	    7.65s	    1.71s
+relative/collatz-C-6mod8-2.srs	natural  3 11		  240.00s	  240.00s	  240.00s	  240.00s
+relative/collatz-T-3mod8-2.srs	arctic  3 12		    2.35s	    0.36s	  117.37s	    0.88s
