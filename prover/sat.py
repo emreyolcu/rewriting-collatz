@@ -94,4 +94,4 @@ class SAT:
 
 def kill(proc):
     proc.kill()
-    sys.exit()
+    os._exit(0)
