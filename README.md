@@ -1,5 +1,5 @@
-# Rewriting Collatz
-This repository accompanies the paper [*An Automated Approach to the Collatz Conjecture*](https://www.cs.cmu.edu/~eyolcu/research/rewriting-collatz.pdf) (with a preliminary version published at CADE 2021). It includes
+# Collatz-like problems as termination of rewriting
+This repository accompanies the paper [*An automated approach to the Collatz conjecture*](https://www.cs.cmu.edu/~eyolcu/research/rewriting-collatz.pdf), published in the [Journal of Automated Reasoning](https://doi.org/10.1007/s10817-022-09658-8). It includes
 - a minimal termination prover that implements the extended/weakly monotone Σ-algebra framework via natural, arctic, and tropical matrix interpretations,
 - string rewriting systems that simulate the iterated applications of several Collatz-like functions,
 - scripts to reproduce the automated proofs in the paper.
